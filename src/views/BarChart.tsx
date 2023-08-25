@@ -6,8 +6,8 @@ import {
   groupTasksByDifficulty,
   groupTasksByEstimate,
 } from "../util/helper";
-import { getAllFinishedTasks } from "../apiService";
-import { ChartData } from "../type";
+import { getAllFinishedTasks } from "../service/api";
+import { ChartData } from "../types/type";
 
 // eslint-disable-next-line
 import "chart.js/auto";

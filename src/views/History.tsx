@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { getAllFinishedTasks } from "../apiService";
-import { Task } from "../type";
+import { getAllFinishedTasks } from "../service/api";
+import { FinishedTask } from "../types/type";
+import { format } from "date-fns";
 
 function History() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<FinishedTask[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -88,10 +89,10 @@ function History() {
                         {task.estimate}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {task.created}
+                        {format(new Date(task.createdAt), "yyyy-MM-dd")}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {task.finished}
+                        {format(new Date(task.finishedAt), "yyyy-MM-dd")}
                       </td>
                     </tr>
                   ))}

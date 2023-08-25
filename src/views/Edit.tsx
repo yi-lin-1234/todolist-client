@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 
-import { getTaskById, updateTaskById } from "../apiService";
+import { getTaskById, updateTaskById } from "../service/api";
 import SuccessAlert from "../components/SuccessAlert";
 import ErrorAlert from "../components/ErrorAlert";
 import CustomRadioGroup from "../components/CustomRadioGroup";

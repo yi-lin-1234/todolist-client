@@ -7,28 +7,29 @@ import {
   getSortedTasks,
   deleteTaskById,
   updateStatusToFinished,
-} from "../apiService";
+} from "../service/api";
 import DropDown from "../components/DropDown";
-import { Task } from "../type";
+import { UnfinishedTask } from "../types/type";
+import { format } from "date-fns";
 
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
 const sortOptions = [
-  { name: "Created At: Newest to Oldest", order: "created-descending" },
-  { name: "Created At: Oldest to Newest", order: "created-ascending" },
-  { name: "Priority: Low to Urgent", order: "priority-ascending" },
-  { name: "Priority: Urgent to Low", order: "priority-descending" },
-  { name: "Difficulty: Easy to Hard", order: "difficulty-ascending" },
-  { name: "Difficulty: Hard to Easy", order: "difficulty-descending" },
-  { name: "Estimated Time: Mins to Years", order: "estimate-ascending" },
-  { name: "Estimated Time: Years to Mins", order: "estimate-descending" },
+  { name: "Created At: Newest to Oldest", order: "createdAt desc" },
+  { name: "Created At: Oldest to Newest", order: "createdAt asc" },
+  { name: "Priority: Low to Urgent", order: "priority asc" },
+  { name: "Priority: Urgent to Low", order: "priority desc" },
+  { name: "Difficulty: Easy to Hard", order: "difficulty asc" },
+  { name: "Difficulty: Hard to Easy", order: "difficulty desc" },
+  { name: "Estimated Time: Mins to Years", order: "estimate asc" },
+  { name: "Estimated Time: Years to Mins", order: "estimate desc" },
 ];
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 function All() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<UnfinishedTask[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [sortOrder, setSortOrder] = useState(sortOptions[0]);
   const navigate = useNavigate();
@@ -69,7 +70,10 @@ function All() {
     async function initialSetUp() {
       setIsLoading(true);
       try {
-        const data = await getSortedTasks(sortOrder.order);
+        const field = sortOrder.order.split(" ")[0];
+        const order = sortOrder.order.split(" ")[1];
+        const data = await getSortedTasks(field, order);
+
         setTasks(data);
       } catch (error) {
         console.error(error);
@@ -153,7 +157,7 @@ function All() {
                         {task.estimate}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {task.created}
+                        {format(new Date(task.createdAt), "yyyy-MM-dd")}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         <Menu as="div" className="relative">

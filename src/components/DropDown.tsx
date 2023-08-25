@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-import { DropDownProps } from "../type";
+import { DropDownProps } from "../types/type";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");

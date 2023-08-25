@@ -1,12 +1,23 @@
-export type Task = {
+export type UnfinishedTask = {
   id: string;
   name: string;
   priority: string;
   status: string;
   difficulty: string;
   estimate: string;
-  created: string;
-  finished: string | null;
+  createdAt: string;
+  finishedAt: null;
+};
+
+export type FinishedTask = {
+  id: string;
+  name: string;
+  priority: string;
+  status: string;
+  difficulty: string;
+  estimate: string;
+  createdAt: string;
+  finishedAt: string;
 };
 
 export type Body = {
@@ -43,4 +54,8 @@ export type CustomRadioGroupProps = {
   value: string;
   onChange: (value: string) => void;
   options: string[];
+};
+
+export type GroupedAttribute = {
+  [key: string]: number;
 };
